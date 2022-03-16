@@ -14,14 +14,12 @@ import java.util.Scanner;
 @PropertySource(value = "classpath:application.properties")
 public class TestService {
 
+    private final QuestionsService questionsService;
     @Value("${app.check.min}")
     private int min;
-
     @Value("${app.check.all}")
     private int all;
-
-    private final QuestionsService questionsService;
-    private Scanner scanner = new Scanner(System.in);
+    private final Scanner scanner = new Scanner(System.in);
 
     public void testStudent() {
         List<Question> questionList = questionsService.getByName();
