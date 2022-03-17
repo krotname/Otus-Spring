@@ -37,9 +37,13 @@ class QuestionsDaoTest {
 
         List<Question> questions = questionsDao.getQuestions();
 
-        assertEquals("Question(questions=На берегу какой реки был построен Новгород?, answer=Волхов)",
-                questions.get(0).toString());
-        assertEquals("Question(questions=Какую землю открыл Ермак?, answer=Сибирь)",
-                questions.get(1).toString());
+        assertEquals("На берегу какой реки был построен Новгород?",
+                questions.get(0).getQuestions());
+        assertEquals("Волхов",
+                questions.get(0).getAnswer());
+        assertEquals("Какую землю открыл Ермак?",
+                questions.get(1).getQuestions());
+        assertEquals("Сибирь",
+                questions.get(1).getAnswer());
     }
 }
