@@ -2,6 +2,7 @@ package ru.otus.work03.dao;
 
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvException;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -13,6 +14,7 @@ import ru.otus.work03.domain.Question;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Locale;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
@@ -26,6 +28,11 @@ class QuestionsDaoTest {
 
     @Autowired
     private QuestionsDao questionsDao;
+
+    @BeforeAll
+    private static void init() {
+        Locale.setDefault(new Locale("ru", "RU"));
+    }
 
     @Test
     void getQuestions() throws IOException, CsvException {
