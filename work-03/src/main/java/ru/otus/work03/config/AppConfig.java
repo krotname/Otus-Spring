@@ -23,8 +23,8 @@ public class AppConfig {
     private String questions;
 
     @Bean
-    public Resource getResource() {
-        return new ClassPathResource(questions);
+    public Resource getLocaleResource(Locale locale) {
+        return new ClassPathResource(questions + "_" + locale.getLanguage() + ".csv");
     }
 
     @Bean

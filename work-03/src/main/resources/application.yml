@@ -2,4 +2,4 @@ app:
     check:
         all: 5
         min: 3
-    csv: questions.csv
+    csv: questions
