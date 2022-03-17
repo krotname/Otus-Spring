@@ -3,7 +3,6 @@ package ru.otus.work03.dao;
 import com.opencsv.CSVReader;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 import ru.otus.work03.domain.Question;
 
