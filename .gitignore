@@ -1,5 +1,9 @@
 /work-01/.idea/*
+/work-02/.idea/*
+/work-01/target/*
+/work-02/target/*
 /.idea/*
+work-02/work-02.iml
 *.jar
 *.jar
 work-02/.mvn/wrapper/maven-wrapper.properties
