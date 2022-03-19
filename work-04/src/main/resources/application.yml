@@ -1,0 +1,11 @@
+app:
+    check:
+        all: 5
+        min: 3
+    csv: questions
+logging:
+    level:
+        root: INFO
+spring:
+    main:
+        allow-circular-references: true
