@@ -24,4 +24,4 @@ spring:
         show-sql: false
 logging:
     level:
-        root: INFO
+        root: ERROR
