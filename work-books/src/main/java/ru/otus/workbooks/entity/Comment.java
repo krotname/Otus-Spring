@@ -11,13 +11,18 @@ import javax.persistence.*;
 @Getter
 @Setter
 @ToString
-@Table(name = "genres")
-public class Genre {
+@Table(name = "comments")
+public class Comment {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private long id;
 
-    @Column(name = "name", nullable = false)
-    private String name;
+    @Column(name = "content", nullable = false)
+    private String content;
+
+    @Column(name = "book_id", nullable = false)
+    private long book_id;
+
 }

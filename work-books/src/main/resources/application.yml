@@ -6,10 +6,22 @@ spring:
     h2:
         console:
             path: /h2-console
-            settings:
-                web-allow-others: true
+            enabled: true
     main:
         allow-circular-references: true
+    sql:
+        init:
+            mode: never
+    jpa:
+        generate-ddl: true
+        hibernate:
+            ddl-auto: validate
+
+        properties:
+            hibernate:
+                format_sql: true
+
+        show-sql: false
 logging:
     level:
-        root: ERROR
+        root: INFO

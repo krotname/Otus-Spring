@@ -5,7 +5,7 @@ import ru.otus.workbooks.entity.Book;
 import java.util.List;
 
 public interface BookDao {
-    void createBook(String name, int genre, int author);
+    Book createBook(Book book);
 
     Book readBook(String name);
 

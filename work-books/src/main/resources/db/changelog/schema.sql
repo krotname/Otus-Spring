@@ -3,20 +3,27 @@
 
 CREATE TABLE books
 (
-    id INT auto_increment primary key,
+    id BIGINT auto_increment primary key,
     name VARCHAR NOT NULL,
-    author INT,
-    genre INT
+    author_id BIGINT,
+    genre_id BIGINT
 );
 
 CREATE TABLE authors
 (
-    id INT auto_increment primary key,
+    id BIGINT auto_increment primary key,
     name VARCHAR NOT NULL
 );
 
 CREATE TABLE genres
 (
-    id INT auto_increment primary key,
+    id BIGINT auto_increment primary key,
     name VARCHAR NOT NULL
+);
+
+CREATE TABLE comments
+(
+    id BIGINT auto_increment primary key,
+    content VARCHAR NOT NULL,
+    book_id BIGINT NOT NULL
 );

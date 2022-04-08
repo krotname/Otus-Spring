@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface AuthorDao {
     List<Author> readAllAuthors();
+
+    Author readAuthor(long id);
 }
