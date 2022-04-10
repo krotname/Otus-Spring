@@ -8,12 +8,12 @@ import javax.persistence.*;
 import java.util.List;
 
 @Builder
-@Entity
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
 @ToString(onlyExplicitlyIncluded = true)
+@Entity
 @Table(name = "books")
 public class Book {
     @Id

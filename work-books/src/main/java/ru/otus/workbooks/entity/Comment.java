@@ -5,12 +5,12 @@ import lombok.*;
 import javax.persistence.*;
 
 @Builder
-@Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
 @ToString
+@Entity
 @Table(name = "comments")
 public class Comment {
 

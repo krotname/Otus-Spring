@@ -18,17 +18,16 @@ public class CommentDaoJpql implements CommentDao {
     private final EntityManager em;
 
     @Override
-    public void createComments(Book book, String content) {
-        Comment comment = Comment.builder()
-                .content(content)
-                .book_id(book.getId())
-                .build();
-
-        em.merge(comment);
+    public Comment createOrUpdateComments(Comment comment) {
+        if (comment.getId() <= 0) {
+            em.persist(comment);
+            return comment;
+        }
+        return em.merge(comment);
     }
 
     @Override
-    public List<Comment> readComment(Book book) {
+    public List<Comment> getComment(Book book) {
         Query query = em.createQuery("select c from Comment as c where c.book_id =:book_id", Comment.class);
         query.setParameter("book_id", book.getId());
         List<Comment> resultList = query.getResultList();
@@ -36,22 +35,17 @@ public class CommentDaoJpql implements CommentDao {
     }
 
     @Override
-    public void updateComment(long id, String content) {
-        Query query = em.createQuery("update Comment b " +
-                "set b.content = :content " +
-                "where b.id = :id");
-        query.setParameter("content", content);
-        query.setParameter("id", id);
-
-        query.executeUpdate();
+    public Comment getCommentByID(long id) {
+        return em.find(Comment.class, id);
     }
 
     @Override
-    public void deleteComment(long id) {
-        Query query = em.createQuery("delete " +
-                "from Comment b " +
-                "where b.id = :id");
-        query.setParameter("id", id);
-        query.executeUpdate();
+    public void deleteCommentById(long id) {
+        Comment comment = em.find(Comment.class, id);
+        if (comment == null) {
+            throw new IllegalArgumentException();
+        } else {
+            em.remove(comment);
+        }
     }
 }

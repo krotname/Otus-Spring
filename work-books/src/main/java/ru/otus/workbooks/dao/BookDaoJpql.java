@@ -3,6 +3,7 @@ package ru.otus.workbooks.dao;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import ru.otus.workbooks.entity.Book;
+import ru.otus.workbooks.entity.Comment;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -16,7 +17,8 @@ public class BookDaoJpql implements BookDao {
     @PersistenceContext
     private final EntityManager em;
 
-    public Book createBook(Book book) {
+    @Override
+    public Book createOrUpdateBook(Book book) {
         if (book.getId() <= 0) {
             em.persist(book);
             return book;
@@ -25,33 +27,24 @@ public class BookDaoJpql implements BookDao {
         }
     }
 
-    public Book readBook(String name) {
+    @Override
+    public Book getBook(String name) {
         Query query = em.createQuery("select b from Book as b where b.name =:name", Book.class);
         query.setParameter("name", name);
         return (Book) query.getSingleResult();
     }
 
-    public void updateBook(String name, int genre, int author) {
-        Query query = em.createQuery("update Book b " +
-                "set b.name = :name " +
-                ", b.genre = :genre " +
-                ", b.author = :author " +
-                "where b.id = :id");
-        query.setParameter("name", name);
-        query.setParameter("genre", genre);
-        query.setParameter("author", author);
-
-        query.executeUpdate();
+    @Override
+    public void deleteBook(long id) {
+        Book book = em.find(Book.class, id);
+        if (book == null) {
+            throw new IllegalArgumentException();
+        } else {
+            em.remove(book);
+        }
     }
 
-    public void deleteBook(String name) {
-        Query query = em.createQuery("delete " +
-                "from Book b " +
-                "where b.name = :name");
-        query.setParameter("name", name);
-        query.executeUpdate();
-    }
-
+    @Override
     public List<Book> readAllBooks() {
         return em.createQuery("select b from Book b", Book.class)
                 .getResultList();

@@ -7,12 +7,12 @@ import java.util.List;
 
 public interface CommentDao {
 
-    void createComments(Book book, String content);
+    Comment createOrUpdateComments(Comment comment);
 
-    List<Comment> readComment(Book book);
+    List<Comment> getComment(Book book);
 
-    void updateComment(long id, String content);
+    Comment getCommentByID(long id);
 
-    void deleteComment(long id);
+    void deleteCommentById(long id);
 
 }

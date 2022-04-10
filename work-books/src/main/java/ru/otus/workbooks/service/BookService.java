@@ -5,9 +5,9 @@ public interface BookService {
 
     void printBook(String book);
 
-    void createBook(String name, int genre, int author);
+    void createBook(String name, long genre, long author);
 
-    void updateBook(String name, int genre, int author);
+    void updateBook(String name, long genre, long author);
 
     void deleteBook(String name);
 }
