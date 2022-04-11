@@ -23,6 +23,6 @@ public class Comment {
     private String content;
 
     @Column(name = "book_id", nullable = false)
-    private long book_id;
+    private long bookId;
 
 }
