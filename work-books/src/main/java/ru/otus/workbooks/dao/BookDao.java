@@ -5,13 +5,11 @@ import ru.otus.workbooks.entity.Book;
 import java.util.List;
 
 public interface BookDao {
-    Book createBook(Book book);
+    Book createOrUpdateBook(Book book);
 
-    Book readBook(String name);
+    Book getBook(String name);
 
-    void updateBook(String name, int genre, int author);
-
-    void deleteBook(String name);
+    void deleteBook(long id);
 
     List<Book> readAllBooks();
 }

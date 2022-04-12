@@ -6,7 +6,9 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.otus.workbooks.dao.AuthorDao;
 import ru.otus.workbooks.dao.BookDao;
 import ru.otus.workbooks.dao.GenreDao;
+import ru.otus.workbooks.entity.Author;
 import ru.otus.workbooks.entity.Book;
+import ru.otus.workbooks.entity.Genre;
 
 
 @Service
@@ -34,31 +36,44 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public void printBook(String book) {
-        ioService.print(bookDao.readBook(book).toString());
+        ioService.print(bookDao.getBook(book).toString());
     }
 
     @Override
     @Transactional
-    public void createBook(String name, int genre, int author) {
+    public void createBook(String name, long genre, long author) {
         Book book = Book.builder()
                 .genre(genreDao.readGenres(genre))
                 .author(authorDao.readAuthor(author))
                 .name(name)
                 .build();
 
-        bookDao.createBook(book);
+        bookDao.createOrUpdateBook(book);
     }
 
     @Override
     @Transactional
-    public void updateBook(String name, int genre, int author) {
-        bookDao.updateBook(name, genre, author);
+    public void updateBook(String name, long genreId, long authorId) {
+        Book book = bookDao.getBook(name);
+
+        if (authorId > 0) {
+            Author author = authorDao.readAuthor(authorId);
+            book.setAuthor(author);
+        }
+
+        if (genreId > 0){
+            Genre genre = genreDao.readGenres(genreId);
+            book.setGenre(genre);
+        }
+
+        bookDao.createOrUpdateBook(book);
     }
 
     @Override
     @Transactional
     public void deleteBook(String name) {
-        bookDao.deleteBook(name);
+        Book book = bookDao.getBook(name);
+        bookDao.deleteBook(book.getId());
     }
 
 }

@@ -1,13 +1,13 @@
 package ru.otus.workbooks.dao;
 
-import ru.otus.workbooks.entity.Book;
+import ru.otus.workbooks.entity.Comment;
 
 public interface CommentDao {
 
-    void createComments(Book book, String content);
+    Comment createOrUpdateComments(Comment comment);
 
-    void updateComment(long id, String content);
+    Comment getCommentByID(long id);
 
-    void deleteComment(long id);
+    void deleteCommentById(long id);
 
 }
