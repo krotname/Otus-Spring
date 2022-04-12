@@ -1,7 +1,9 @@
 package ru.otus.workbooks.dao;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 import ru.otus.workbooks.entity.Book;
 
 import javax.persistence.EntityManager;
@@ -9,7 +11,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import java.util.List;
 
-@Repository
+@Service
 @RequiredArgsConstructor
 public class BookDaoJpql implements BookDao {
 

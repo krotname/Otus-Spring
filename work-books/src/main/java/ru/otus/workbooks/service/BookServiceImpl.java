@@ -33,7 +33,6 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    @Transactional(readOnly = true)
     public void printBook(String book) {
         ioService.print(bookDao.readBook(book).toString());
     }

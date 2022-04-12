@@ -26,9 +26,8 @@ public class CommentsServiceImpl implements CommentsService {
     @Transactional(readOnly = true)
     public void readComments(String bookName) {
         Book book = bookDao.readBook(bookName);
-        ioService.print(commentDao.readComment(book).toString());
+        ioService.print(book.getComments().toString());
     }
-
 
     @Override
     @Transactional

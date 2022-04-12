@@ -39,7 +39,5 @@ public class Book {
     @OneToMany
     @JoinColumn(name = "book_id")
     @Fetch(FetchMode.SUBSELECT)
-    @ToString.Include
-
     private List<Comment> comments;
 }

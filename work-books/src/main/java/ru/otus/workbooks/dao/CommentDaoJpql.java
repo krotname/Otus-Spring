@@ -1,16 +1,15 @@
 package ru.otus.workbooks.dao;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 import ru.otus.workbooks.entity.Book;
 import ru.otus.workbooks.entity.Comment;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import java.util.List;
 
-@Repository
+@Service
 @RequiredArgsConstructor
 public class CommentDaoJpql implements CommentDao {
 
@@ -21,18 +20,10 @@ public class CommentDaoJpql implements CommentDao {
     public void createComments(Book book, String content) {
         Comment comment = Comment.builder()
                 .content(content)
-                .book_id(book.getId())
+                .book(book)
                 .build();
 
         em.merge(comment);
-    }
-
-    @Override
-    public List<Comment> readComment(Book book) {
-        Query query = em.createQuery("select c from Comment as c where c.book_id =:book_id", Comment.class);
-        query.setParameter("book_id", book.getId());
-        List<Comment> resultList = query.getResultList();
-        return resultList;
     }
 
     @Override

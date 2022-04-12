@@ -2,13 +2,14 @@ package ru.otus.workbooks.dao;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 import ru.otus.workbooks.entity.Genre;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
-@Repository
+@Service
 @RequiredArgsConstructor
 public class GenreDaoJpql implements GenreDao {
 
