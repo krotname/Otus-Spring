@@ -8,12 +8,12 @@ import javax.persistence.*;
 import java.util.List;
 
 @Builder
-@Entity
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
 @ToString(onlyExplicitlyIncluded = true)
+@Entity
 @Table(name = "books")
 public class Book {
     @Id
@@ -39,7 +39,5 @@ public class Book {
     @OneToMany
     @JoinColumn(name = "book_id")
     @Fetch(FetchMode.SUBSELECT)
-    @ToString.Include
-
     private List<Comment> comments;
 }
