@@ -22,7 +22,9 @@ public class Comment {
     @Column(name = "content", nullable = false)
     private String content;
 
-    @Column(name = "book_id", nullable = false)
-    private long bookId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "book_id")
+    @ToString.Exclude
+    private Book book;
 
 }
