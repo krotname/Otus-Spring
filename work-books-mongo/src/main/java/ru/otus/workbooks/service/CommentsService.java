@@ -6,7 +6,7 @@ public interface CommentsService {
 
     void readComments(String bookName);
 
-    void updateComment(long id, String content);
+    void updateComment(String bookName, int id, String content);
 
-    void deleteComment(long id);
+    void deleteComment(String bookName, int id);
 }

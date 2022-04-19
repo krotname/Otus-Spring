@@ -18,7 +18,4 @@ public class Comment {
 
     private String content;
 
-    @ToString.Exclude
-    private Book book;
-
 }

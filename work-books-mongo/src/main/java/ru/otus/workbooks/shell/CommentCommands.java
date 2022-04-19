@@ -23,13 +23,13 @@ public class CommentCommands {
     }
 
     @ShellMethod(value = "Update comment command", key = {"cu", "cupdate"})
-    public void updateComment(@ShellOption() long id, @ShellOption() String content) {
-        commentsService.updateComment(id, content);
+    public void updateComment(@ShellOption() String bookName, @ShellOption() int id, @ShellOption() String content) {
+        commentsService.updateComment(bookName, id, content);
     }
 
     @ShellMethod(value = "Delete comment command", key = {"cd", "cdelete"})
-    public void deleteComment(@ShellOption() long id) {
-        commentsService.deleteComment(id);
+    public void deleteComment(@ShellOption() String bookName, @ShellOption() int id) {
+        commentsService.deleteComment(bookName, id);
     }
 
 }

@@ -17,4 +17,4 @@ mongock:
       journal: false
 logging:
   level:
-    root: INFO
+    root: ERROR

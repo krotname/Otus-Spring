@@ -3,10 +3,11 @@ package ru.otus.workbooks.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.otus.workbooks.dao.BookRepository;
-import ru.otus.workbooks.dao.CommentsRepository;
 import ru.otus.workbooks.entity.Book;
 import ru.otus.workbooks.entity.Comment;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -14,7 +15,6 @@ import java.util.UUID;
 public class CommentsServiceImpl implements CommentsService {
 
     private final BookRepository bookRepository;
-    private final CommentsRepository commentsRepository;
     private final IOService ioService;
 
     @Override
@@ -23,28 +23,38 @@ public class CommentsServiceImpl implements CommentsService {
 
         Comment comment = Comment.builder()
                 .id(UUID.randomUUID().toString())
-                .book(book)
                 .content(content)
                 .build();
 
-        commentsRepository.save(comment);
+        List<Comment> comments = book.getComments();;
+
+        if (comments == null) {
+            comments = new ArrayList<>();
+        }
+
+        comments.add(comment);
+        book.setComments(comments);
+
+        bookRepository.save(book);
     }
 
     @Override
     public void readComments(String bookName) {
         Book book = bookRepository.findByName(bookName);
-        ioService.print(commentsRepository.findByBookId(book.getId()).toString());
+        ioService.print(book.getComments().toString());
     }
 
     @Override
-    public void updateComment(long id, String content) {
-        Comment comment = commentsRepository.findById(id).orElseThrow();
-        comment.setContent(content);
-        commentsRepository.save(comment);
+    public void updateComment(String bookName, int id, String content) {
+        Book book = bookRepository.findByName(bookName);
+        book.getComments().get(id).setContent(content);
+        bookRepository.save(book);
     }
 
     @Override
-    public void deleteComment(long id) {
-        commentsRepository.removeById(id);
+    public void deleteComment(String bookName, int id) {
+        Book book = bookRepository.findByName(bookName);
+        book.getComments().remove(id);
+        bookRepository.save(book);
     }
 }

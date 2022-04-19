@@ -27,5 +27,6 @@ public class Book {
     @ToString.Include
     private Genre genre;
 
+    @ToString.Include
     private List<Comment> comments;
 }
