@@ -1,3 +1,5 @@
 /.idea/*
 *.jar
 spring-shell.log
+.jpb/persistence-units.xml
+work-01/work-01.iml

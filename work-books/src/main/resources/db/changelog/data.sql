@@ -38,20 +38,29 @@ VALUES ('Бхаргава Адитья');
 
 --changeset InsertInBooks_sql:4
 
-INSERT INTO books (name, author, genre)
+INSERT INTO books (name, author_id, genre_id)
 VALUES ('Долина', 1, 2);
 
-INSERT INTO books (name, author, genre)
+INSERT INTO books (name, author_id, genre_id)
 VALUES ('Мост Дьявола', 2, 2);
 
-INSERT INTO books (name, author, genre)
+INSERT INTO books (name, author_id, genre_id)
 VALUES ('Глазами жертвы', 3, 2);
 
-INSERT INTO books (name, author, genre)
-VALUES ('Просто Маса', 4, 2);
+INSERT INTO books (name, author_id, genre_id)
+VALUES ('Просто', 4, 2);
 
-INSERT INTO books (name, author, genre)
+INSERT INTO books (name, author_id, genre_id)
 VALUES ('Штормовое предупреждение', 5, 2);
 
-INSERT INTO books (name, author, genre)
+INSERT INTO books (name, author_id, genre_id)
 VALUES ('Грокаем Алгоритмы', 6, 5);
+
+INSERT INTO comments (book_id, content)
+VALUES (6, 'Доступно про рекурсию!');
+
+INSERT INTO comments (book_id, content)
+VALUES (1, 'Захватывающе!');
+
+INSERT INTO comments (book_id, content)
+VALUES (1, 'Очень Захватывающе!');

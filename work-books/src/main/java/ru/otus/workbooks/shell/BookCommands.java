@@ -8,7 +8,7 @@ import ru.otus.workbooks.service.BookService;
 
 @ShellComponent
 @RequiredArgsConstructor
-public class ApplicationCommands {
+public class BookCommands {
 
     private final BookService bookService;
 
@@ -17,22 +17,22 @@ public class ApplicationCommands {
         bookService.printAllInfo();
     }
 
-    @ShellMethod(value = "Read command", key = {"r", "read"})
+    @ShellMethod(value = "Read book command", key = {"r", "read"})
     public void readBook(@ShellOption({"r", "read"}) String book) {
         bookService.printBook(book);
     }
 
-    @ShellMethod(value = "Create command", key = {"c", "create"})
+    @ShellMethod(value = "Create book command", key = {"c", "create"})
     public void createBook(@ShellOption({"n", "name"}) String name, @ShellOption({"genre"}) int genre, @ShellOption({"author"}) int author) {
         bookService.createBook(name, genre, author);
     }
 
-    @ShellMethod(value = "Update command", key = {"u", "update"})
+    @ShellMethod(value = "Update book command", key = {"u", "update"})
     public void updateBook(@ShellOption({"n", "name"}) String name, @ShellOption({"genre"}) int genre, @ShellOption({"author"}) int author) {
         bookService.updateBook(name, genre, author);
     }
 
-    @ShellMethod(value = "Delete command", key = {"d", "delete"})
+    @ShellMethod(value = "Delete book command", key = {"d", "delete"})
     public void deleteBook(@ShellOption({"n", "name"}) String name) {
         bookService.deleteBook(name);
     }
