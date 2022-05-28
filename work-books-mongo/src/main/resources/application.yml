@@ -1,0 +1,20 @@
+spring:
+  mongodb:
+    embedded:
+      version: 5.0.5
+  data:
+    mongodb:
+      database: library
+      port: 60086
+  main:
+    allow-circular-references: true
+mongock:
+  runner-type: "InitializingBean"
+  change-logs-scan-package:
+    - ru.otus.workbooks.changelog
+  mongo-db:
+    write-concern:
+      journal: false
+logging:
+  level:
+    root: ERROR
