@@ -18,17 +18,17 @@ public class BookCommands {
     }
 
     @ShellMethod(value = "Read book command", key = {"r", "read"})
-    public void readBook(@ShellOption({"r", "read"}) String book) {
-        bookService.printBook(book);
+    public void readBook(@ShellOption({"r", "read"}) String name) {
+        bookService.printBook(name);
     }
 
     @ShellMethod(value = "Create book command", key = {"c", "create"})
-    public void createBook(@ShellOption({"n", "name"}) String name, @ShellOption({"genre"}) int genre, @ShellOption({"author"}) int author) {
+    public void createBook(@ShellOption({"n", "name"}) String name, @ShellOption({"genre"}) long genre, @ShellOption({"author"}) long author) {
         bookService.createBook(name, genre, author);
     }
 
     @ShellMethod(value = "Update book command", key = {"u", "update"})
-    public void updateBook(@ShellOption({"n", "name"}) String name, @ShellOption({"genre"}) int genre, @ShellOption({"author"}) int author) {
+    public void updateBook(@ShellOption({"n", "name"}) String name, @ShellOption({"genre"}) long genre, @ShellOption({"author"}) long author) {
         bookService.updateBook(name, genre, author);
     }
 
