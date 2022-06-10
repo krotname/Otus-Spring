@@ -28,4 +28,12 @@ CREATE TABLE comments
     book_id BIGINT NOT NULL
 );
 
+CREATE TABLE users
+(
+    id BIGINT auto_increment primary key,
+    login VARCHAR NOT NULL,
+    password VARCHAR NOT NULL,
+    role VARCHAR NOT NULL
+);
+
 
