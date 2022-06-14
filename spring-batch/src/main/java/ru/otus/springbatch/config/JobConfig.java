@@ -16,13 +16,15 @@ import org.springframework.batch.item.database.JpaCursorItemReader;
 import org.springframework.batch.item.file.FlatFileItemWriter;
 import org.springframework.batch.item.file.builder.FlatFileItemWriterBuilder;
 import org.springframework.batch.item.file.transform.DelimitedLineAggregator;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.lang.NonNull;
-import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import ru.otus.springbatch.entity.Author;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 @Configuration
 @RequiredArgsConstructor
@@ -33,6 +35,12 @@ public class JobConfig {
 
     private final JobBuilderFactory jobBuilderFactory;
     private final StepBuilderFactory stepBuilderFactory;
+
+    @PersistenceContext
+    EntityManager entityManager;
+
+    @Value("${app.output-authors}")
+    private String outputAuthors;
 
     @Bean
     public Job startJob(Step exportStep) {
@@ -75,11 +83,10 @@ public class JobConfig {
     @Bean
     public JpaCursorItemReader<Author> reader() throws Exception {
 
-        LocalContainerEntityManagerFactoryBean factoryBean = new LocalContainerEntityManagerFactoryBean();
         String jpqlQuery = "from Author";
         JpaCursorItemReader<Author> itemReader = new JpaCursorItemReader<>();
         itemReader.setQueryString(jpqlQuery);
-        itemReader.setEntityManagerFactory(factoryBean.getObject());
+        itemReader.setEntityManagerFactory(entityManager.getEntityManagerFactory());
         itemReader.afterPropertiesSet();
         itemReader.setSaveState(true);
         return itemReader;
@@ -90,7 +97,7 @@ public class JobConfig {
     public FlatFileItemWriter<Author> writer() {
         return new FlatFileItemWriterBuilder<Author>()
                 .name("authorItemWriter")
-                .resource(new FileSystemResource("11"))
+                .resource(new FileSystemResource(outputAuthors))
                 .lineAggregator(new DelimitedLineAggregator<>())
                 .build();
     }

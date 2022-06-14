@@ -10,26 +10,29 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
 @RequiredArgsConstructor
 @ShellComponent
 public class Commands {
 
+    @PersistenceContext
+    EntityManager entityManager;
+
     private final JobExplorer jobExplorer;
     private final JobLauncher jobLauncher;
     private final Job startJob;
-    @Value("${app.output-file}")
-    private String outputFile;
 
     @ShellMethod(value = "showInfo", key = "i")
     public void showInfo() {
+        System.out.println(entityManager.getProperties());
         System.out.println(jobExplorer.getJobNames());
     }
 
-
-    @ShellMethod(value = "startMigrationJobWithJobLauncher", key = "s")
+    @ShellMethod(value = "startMigrationJob", key = "s")
     public void startMigration() throws Exception {
         JobExecution execution = jobLauncher.run(startJob, new JobParametersBuilder()
-                .addString("outputFileName", outputFile)
                 .toJobParameters());
         System.out.println(execution);
     }
