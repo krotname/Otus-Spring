@@ -19,3 +19,26 @@ logging:
     root: INFO
 server:
   port: 8081
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+  info:
+    # Включает информацию о сборке (spring-boot-maven-plugin)
+    build:
+      enabled: true
+    # Включает информацию о приложении из application.yml
+    git:
+      mode: "full"
+
+# Собственно, сама информация
+info:
+  app:
+    # Пример фильтрации свойств Maven
+    version: @project.version@
+    author: Andrey
+    description: Andrey do it
