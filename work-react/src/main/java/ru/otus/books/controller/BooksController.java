@@ -35,7 +35,7 @@ public class BooksController {
         return BookDto.toDto(savedBook);
     }
 
-    @PatchMapping("/api/books/{id}/name")
+    @PatchMapping("/api/books/{id}/{name}")
     public BookDto updateNameById(@PathVariable("id") long id, @RequestParam("name") String name) {
         Book book = repository.findById(id).orElseThrow(NotFoundException::new);
         book.setName(name);
@@ -43,8 +43,9 @@ public class BooksController {
     }
 
     @DeleteMapping("/api/books/{id}")
-    public void deleteById(@PathVariable("id") long id) {
+    public String deleteById(@PathVariable("id") long id) {
         repository.deleteById(id);
+        return "Ok";
     }
 
     @ExceptionHandler(NotFoundException.class)

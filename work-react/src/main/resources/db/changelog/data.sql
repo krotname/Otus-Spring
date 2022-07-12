@@ -65,3 +65,11 @@ VALUES (1, 'Захватывающе!');
 INSERT INTO comments (book_id, content)
 VALUES (1, 'Очень Захватывающе!');
 
+INSERT INTO users (login, password, role)
+VALUES ('user', 'user', 'USER');
+
+INSERT INTO users (login, password, role)
+VALUES ('admin', '1', 'ADMIN');
+
+INSERT INTO users (login, password, role)
+VALUES ('manager', '2', 'MANAGER');
