@@ -24,4 +24,7 @@ spring:
 
 app:
   output-authors: C:\work\authors.txt
+  output-genres: C:\work\genres.txt
+  output-books: C:\work\books.txt
+  output-comments: C:\work\comments.txt
 
