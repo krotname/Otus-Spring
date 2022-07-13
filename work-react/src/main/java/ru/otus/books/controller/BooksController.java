@@ -7,6 +7,7 @@ import ru.otus.books.dao.BookRepository;
 import ru.otus.books.dto.BookDto;
 import ru.otus.books.entity.Book;
 import ru.otus.books.exceptions.NotFoundException;
+import ru.otus.books.integration.BookService;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -16,10 +17,12 @@ import java.util.stream.Collectors;
 public class BooksController {
 
     private final BookRepository repository;
+    private final BookService bookService;
 
     @GetMapping("/api/books/all")
     public List<BookDto> getAllBooks() {
-        return repository.findAll().stream().map(BookDto::toDto).collect(Collectors.toList());
+        return bookService.getAllBooks(1).stream().map(BookDto::toDto).collect(Collectors.toList());
+        //return repository.findAll().stream().map(BookDto::toDto).collect(Collectors.toList());
     }
 
     @GetMapping("/api/books/{id}")

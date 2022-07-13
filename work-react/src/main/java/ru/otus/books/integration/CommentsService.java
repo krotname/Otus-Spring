@@ -1,4 +1,4 @@
-package ru.otus.books.service;
+package ru.otus.books.integration;
 
 public interface CommentsService {
 
