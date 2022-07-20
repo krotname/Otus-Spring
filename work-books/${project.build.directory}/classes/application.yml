@@ -1,0 +1,27 @@
+spring:
+    liquibase:
+        change-log: classpath:/db/changelog/changelog-master.yml
+    datasource:
+        url: jdbc:h2:mem:testdb
+    h2:
+        console:
+            path: /h2-console
+            enabled: true
+    main:
+        allow-circular-references: true
+    sql:
+        init:
+            mode: never
+    jpa:
+        generate-ddl: true
+        hibernate:
+            ddl-auto: validate
+
+        properties:
+            hibernate:
+                format_sql: true
+
+        show-sql: false
+logging:
+    level:
+        root: ERROR

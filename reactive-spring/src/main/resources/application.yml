@@ -6,15 +6,15 @@ spring:
     mongodb:
       database: library
       port: 60086
-  main:
-    allow-circular-references: true
 mongock:
   runner-type: "InitializingBean"
   change-logs-scan-package:
-    - ru.otus.workbooks.changelog
+    - ru.otus.reactivespring.mongock
   mongo-db:
     write-concern:
       journal: false
+server:
+  port: 8081
 logging:
   level:
     root: INFO
