@@ -1,6 +1,8 @@
 package ru.otus.books.controller;
 
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import lombok.RequiredArgsConstructor;
+import lombok.SneakyThrows;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.otus.books.dao.BookRepository;
@@ -21,24 +23,52 @@ public class BooksController {
     private final ConvertService convertService;
 
     @GetMapping("/api/books/all")
+    @HystrixCommand(fallbackMethod = "defaultListDto")
+    @SneakyThrows
     public List<BookDto> getAllBooks() {
         return bookService.getAllBooks(0);
     }
 
     @GetMapping("/api/books/{id}")
+    @HystrixCommand(fallbackMethod = "defaultDto")
     public BookDto getBookByIdInPath(@PathVariable("id") long id) {
         return bookService.getBookById(id);
     }
 
     @PostMapping("/api/books")
+    @HystrixCommand
     public BookDto createNewBook(@RequestBody BookDto dto) {
         return bookService.saveBook(dto);
+        Book book = BookDto.toDomainObject(dto);
+        Book savedBook = repository.save(book);
+        return BookDto.toDto(savedBook);
+    }
+
+    @PatchMapping("/api/books/{id}/{name}")
+    @HystrixCommand
+    public BookDto updateNameById(@PathVariable("id") long id, @RequestParam("name") String name) {
+        Book book = repository.findById(id).orElseThrow(NotFoundException::new);
+        book.setName(name);
+        return BookDto.toDto(repository.save(book));
     }
 
     @DeleteMapping("/api/books/{id}")
+    @HystrixCommand(fallbackMethod = "defaultString")
     public String deleteById(@PathVariable("id") long id) {
         repository.deleteById(id);
         return "Ok";
+    }
+
+    private String defaultString(long id) {
+        return "error on load";
+    }
+
+    private BookDto defaultDto(long id) {
+        return new BookDto(0, "");
+    }
+
+    private List<BookDto> defaultListDto() {
+        return List.of(new BookDto(0, ""));
     }
 
     @ExceptionHandler(NotFoundException.class)
