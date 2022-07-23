@@ -9,34 +9,36 @@ import ru.otus.books.dao.BookRepository;
 import ru.otus.books.dto.BookDto;
 import ru.otus.books.entity.Book;
 import ru.otus.books.exceptions.NotFoundException;
+import ru.otus.books.integration.BookService;
+import ru.otus.books.integration.ConvertService;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequiredArgsConstructor
 public class BooksController {
 
     private final BookRepository repository;
+    private final BookService bookService;
+    private final ConvertService convertService;
 
     @GetMapping("/api/books/all")
     @HystrixCommand(fallbackMethod = "defaultListDto")
     @SneakyThrows
     public List<BookDto> getAllBooks() {
-//        Thread.sleep(50000);
-        return repository.findAll().stream().map(BookDto::toDto).collect(Collectors.toList());
+        return bookService.getAllBooks(0);
     }
 
     @GetMapping("/api/books/{id}")
     @HystrixCommand(fallbackMethod = "defaultDto")
     public BookDto getBookByIdInPath(@PathVariable("id") long id) {
-        Book book = repository.findById(id).orElseThrow(NotFoundException::new);
-        return BookDto.toDto(book);
+        return bookService.getBookById(id);
     }
 
     @PostMapping("/api/books")
     @HystrixCommand
     public BookDto createNewBook(@RequestBody BookDto dto) {
+        return bookService.saveBook(dto);
         Book book = BookDto.toDomainObject(dto);
         Book savedBook = repository.save(book);
         return BookDto.toDto(savedBook);
