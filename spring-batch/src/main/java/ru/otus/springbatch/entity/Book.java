@@ -1,4 +1,4 @@
-package ru.otus.books.entity;
+package ru.otus.springbatch.entity;
 
 import lombok.*;
 import org.hibernate.annotations.Fetch;
@@ -38,6 +38,6 @@ public class Book {
 
     @OneToMany
     @JoinColumn(name = "book_id")
-    @Fetch(FetchMode.SUBSELECT) //todo кажется это не решило проблему n+1
+    @Fetch(FetchMode.SUBSELECT)
     private List<Comment> comments;
 }

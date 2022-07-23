@@ -1,4 +1,6 @@
 spring:
+  application:
+    name: work-react
   liquibase:
     change-log: classpath:/db/changelog/changelog-master.yml
   datasource:

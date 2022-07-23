@@ -17,9 +17,9 @@ public class DbUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        MyUser myUser= dao.findByLogin(username);
+        MyUser myUser = dao.findByLogin(username);
         if (myUser == null) {
-            throw new UsernameNotFoundException("Unknown user: "+username);
+            throw new UsernameNotFoundException("Unknown user: " + username);
         }
         return User.builder()
                 .username(myUser.getLogin())
