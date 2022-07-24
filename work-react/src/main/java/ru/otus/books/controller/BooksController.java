@@ -36,7 +36,6 @@ public class BooksController {
     @HystrixCommand(fallbackMethod = "defaultDto")
     public BookDto getBookByIdInPath(@PathVariable("id") long id) {
         log.info("Запрошенна Книга: {}", id);
-        Book book = repository.findById(id).orElseThrow(NotFoundException::new);
         return bookService.getBookById(id);
     }
 
@@ -45,9 +44,6 @@ public class BooksController {
     public BookDto createNewBook(@RequestBody BookDto dto) {
         log.info("Создана Книга: {}", dto);
         return bookService.saveBook(dto);
-        Book book = BookDto.toDomainObject(dto);
-        Book savedBook = repository.save(book);
-        return BookDto.toDto(savedBook);
     }
 
     @PatchMapping("/api/books/{id}/{name}")
@@ -56,7 +52,7 @@ public class BooksController {
         log.info("Обновлена Книга: {}, новое имя {}", id, name);
         Book book = repository.findById(id).orElseThrow(NotFoundException::new);
         book.setName(name);
-        return BookDto.toDto(repository.save(book));
+        return bookService.saveBook(convertService.toDto(book));
     }
 
     @DeleteMapping("/api/books/{id}")
