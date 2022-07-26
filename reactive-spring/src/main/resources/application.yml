@@ -1,0 +1,20 @@
+spring:
+  mongodb:
+    embedded:
+      version: 5.0.5
+  data:
+    mongodb:
+      database: library
+      port: 60086
+mongock:
+  runner-type: "InitializingBean"
+  change-logs-scan-package:
+    - ru.otus.reactivespring.mongock
+  mongo-db:
+    write-concern:
+      journal: false
+server:
+  port: 8081
+logging:
+  level:
+    root: INFO
