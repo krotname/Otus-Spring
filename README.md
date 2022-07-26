@@ -1,3 +1,3 @@
-# 2022-02-Otus-Spring-Ovcharenko-Andrey
+# Otus-Spring
 
-Выполененные работы по учебному курсу https://otus.ru/lessons/javaspring/
+Работы по курсу https://otus.ru/lessons/javaspring/
